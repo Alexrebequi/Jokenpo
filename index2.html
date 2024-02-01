@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #game-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        img {
+            max-width: 150px;
+            border: 2px solid #333;
+            border-radius: 5px;
+        }
+
+        #result {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    </style>
+    <title>Jogo de Pedra, Papel e Tesoura</title>
+</head>
+<body>
+    <h1>Jogo de Pedra, Papel e Tesoura</h1>
+    
+    <div id="game-container">
+        <img id="player-choice" src="" alt="Escolha do jogador">
+        <img id="computer-choice" src="" alt="Escolha do computador">
+    </div>
+
+    <p id="result"></p>
+
+    <button onclick="playGame()">Jogar</button>
+
+    <script>
+        function playGame() {
+            var choices = ["pedra", "papel", "tesoura"];
+            var playerChoice = choices[Math.floor(Math.random() * 3)];
+            var computerChoice = choices[Math.floor(Math.random() * 3)];
+
+            document.getElementById("player-choice").src = `data:image/jpeg;base64, ${getImageBase64(playerChoice)}`;
+            document.getElementById("computer-choice").src = `data:image/jpeg;base64, ${getImageBase64(computerChoice)}`;
+
+            var result = determineWinner(playerChoice, computerChoice);
+            document.getElementById("result").innerText = result;
+        }
+
+        function determineWinner(player, computer) {
+            if (player === computer) {
+                return "Empate!";
+            } else if (
+                (player === "pedra" && computer === "tesoura") ||
+                (player === "papel" && computer === "pedra") ||
+                (player === "tesoura" && computer === "papel")
+            ) {
+                return "Você venceu!";
+            } else {
+                return "Você perdeu. Tente novamente!";
+            }
+        }
+
+        function getImageBase64(choice) {
+            switch (choice) {
+                case "pedra":
+                    return "https://www.google.com/imgres?imgurl=https%3A%2F%2Fe7.pngegg.com%2Fpngimages%2F422%2F99%2Fpng-clipart-rock-paper-scissors-computer-icons-scissors-game-white-thumbnail.png&tbnid=1i1j6cz6_5SHqM&vet=12ahUKEwij_vKl6IiEAxW4M7kGHQMQDQkQMygGegQIARBZ..i&imgrefurl=https%3A%2F%2Fwww.pngegg.com%2Fpt%2Fsearch%3Fq%3Dpedra%2Bpapel%2Btesoura&docid=AVkWEAtYMmUvdM&w=348&h=306&q=pedra%20m%C3%A3o%20png&ved=2ahUKEwij_vKl6IiEAxW4M7kGHQMQDQkQMygGegQIARBZ";
+                case "papel":
+                    return "https://www.google.com/imgres?imgurl=https%3A%2F%2Fimg.lovepik.com%2Ffree-png%2F20220125%2Flovepik-back-of-hand-png-image_401704643_wh860.png&tbnid=S4Ml69b-hXc84M&vet=12ahUKEwjCraex2YiEAxUiNLkGHW2jBDcQMygEegQIARBV..i&imgrefurl=https%3A%2F%2Fpt.lovepik.com%2Fimage-401704643%2Fback-of-hand.html&docid=7JEByOywajlq0M&w=860&h=860&q=m%C3%A3o%20papel%20png&ved=2ahUKEwjCraex2YiEAxUiNLkGHW2jBDcQMygEegQIARBV";
+                case "tesoura":
+                    return "https://www.google.com/imgres?imgurl=https%3A%2F%2Fe7.pngegg.com%2Fpngimages%2F588%2F310%2Fpng-clipart-hand-rock-paper-scissors-computer-icons-hand-angle-text.png&tbnid=3FOLyYM9RNORdM&vet=12ahUKEwjCraex2YiEAxUiNLkGHW2jBDcQMygKegQIARBl..i&imgrefurl=https%3A%2F%2Fwww.pngegg.com%2Fpt%2Fpng-tjbet&docid=4NG4ET4P5beCeM&w=900&h=772&q=m%C3%A3o%20papel%20png&ved=2ahUKEwjCraex2YiEAxUiNLkGHW2jBDcQMygKegQIARBl";
+                default:
+                    return "";
+            }
+        }
+    </script>
+</body>
+</html>
